@@ -2,6 +2,7 @@ package com.example.ewe;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -18,12 +19,17 @@ public class EchoController {
         return message;
     }
 
-    @GetMapping("/")
-    public ResponseEwe create2(String asd) throws Exception {
-        throw new Exception();
+    @PostMapping("/post/{message}")
+    public String postMethodName(@PathVariable String message) {
+        return "Received: " + message;
     }
 
-    @GetMapping("/ewe")
+    @GetMapping("/err")
+    public ResponseEwe create2() throws Exception {
+        throw new IllegalArgumentException("This is an error message");
+    }
+
+    @GetMapping("/rickandmorty")
     public ResponseEwe create(String asd) {
         ResponseEwe response = exampleFeignClient.getData();
         response.setPassword("ewe");
